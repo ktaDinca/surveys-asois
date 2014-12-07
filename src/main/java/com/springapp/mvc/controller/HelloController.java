@@ -1,4 +1,4 @@
-package com.springapp.mvc;
+package com.springapp.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,4 +13,5 @@ public class HelloController {
 	public String printWelcome(ModelMap model) {
 		return "hello";
 	}
+
 }

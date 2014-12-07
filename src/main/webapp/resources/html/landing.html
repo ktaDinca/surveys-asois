@@ -1,0 +1,26 @@
+<div ng-controller="mainController">
+
+    <h2>Buna ziua!</h2>
+    <br>
+
+    <div ng-show="!user" ng-include='"/surveys/resources/html/login.html"'></div>
+
+    <div ng-show="user">
+        Salut {{user.username}} -- {{user.role}}
+    </div>
+
+    <tabset justified="true">
+        <tab heading="active surveys">
+            <ng-include src='"/surveys/resources/html/active.html"'></ng-include>
+        </tab>
+
+        <tab heading="expired surveys">
+            <ng-include src='"/surveys/resources/html/expired.html"'></ng-include>
+        </tab>
+
+        <tab heading="your history">
+            <ng-include src='"/surveys/resources/html/history.html"'></ng-include>
+        </tab>
+    </tabset>
+
+</div>

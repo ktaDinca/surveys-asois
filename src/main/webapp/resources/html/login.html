@@ -1,0 +1,10 @@
+<div ng-controller="loginController">
+
+    <span ng-show="showLoginCredentialBox">
+        <input type="text" placeholder="username" ng-model="username">
+        <input type="password" placeholder="password" ng-model="password">
+    </span>
+
+    <button type="button" class="btn btn-info" value="login" ng-click="attemptLogin(showLoginCredentialBox)">login</button>
+
+</div>
