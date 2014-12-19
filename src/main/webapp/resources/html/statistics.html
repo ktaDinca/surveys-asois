@@ -1,0 +1,18 @@
+
+<div ng-controller="statisticsController">
+
+    <table class="table">
+        <thead>
+            <th>Country</th>
+            <th>Percentage</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pair in statistics">
+                <td>{{pair.country}}</td>
+                <td>{{pair.percent}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

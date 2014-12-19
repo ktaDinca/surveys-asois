@@ -25,11 +25,9 @@ angular
                     // notify parent $scope (MainController) that the user
                     // has logged in, not to display the login box any more
                     $scope.$emit('userLoggedIn');
-
+                } else {
+                    alert("Login credentials are invalid!");
                 }
-            })
-            .error(function (data) {
-                alert("login invalid!");
             });
         }
     }]);

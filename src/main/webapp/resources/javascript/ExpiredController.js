@@ -1,6 +1,11 @@
 angular
     .module('surveys')
     .controller('expiredController', ['$scope', '$http', function($scope, $http) {
+
+        $scope.$on('doExpiredTab', function() {
+            $scope.getExpiredSurveys();
+        });
+
         $scope.surveys = [];
 
         $scope.getExpiredSurveys = function() {
@@ -14,7 +19,5 @@ angular
                 }
             });
         };
-
-        $scope.getExpiredSurveys();
 
     }]);

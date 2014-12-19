@@ -71,4 +71,8 @@ public class UserService {
             interactionService.createInteraction(loggedInUser, logEvent, new Date());
         }
     }
+
+    public User findUserById(Long userId) {
+        return userDao.findUser(userId);
+    }
 }

@@ -1,6 +1,8 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.dao.AnswerDAO;
 import com.springapp.mvc.model.Answer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,9 @@ import java.util.List;
 @Service
 @Transactional
 public class AnswerService {
+
+    @Autowired
+    private AnswerDAO answerDAO;
 
     public List<Answer> createListAnswers(String[] _answers) {
         if (_answers == null || _answers.length == 0) {
@@ -29,4 +34,7 @@ public class AnswerService {
         return answers;
     }
 
+    public Answer findAnswer(Long answerId) {
+        return answerDAO.findAnswer(answerId);
+    }
 }

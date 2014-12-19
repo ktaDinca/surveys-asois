@@ -1,14 +1,13 @@
 <div class="surveyContainer container">
     <h3>{{survey.description}}</h3>
     <div ng-repeat="answer in survey.answers" class="answer">
-        <div class="checkbox">
+        <div class="radio">
             <label>
-                <input type="checkbox" value="{{answer.id}}">
-                {{answer.text}}
+                <input ng-model="$parent.tempId" name="{{survey.id}}" type="radio" ng-value="answer.id">{{answer.text}}
             </label>
         </div>
     </div>
-    <button ng-show="!((user || {}).role === 'ADMIN')" type="button" ng-click="attemptVote(survey.id)" ng-disabled="survey.disabled"class="btn btn-info">SUBMIT</button>
+    <button ng-show="!((user || {}).role === 'ADMIN')" type="button" ng-click="attemptVote(survey.id, tempId)" ng-disabled="survey.disabled"class="btn btn-info">SUBMIT</button>
 
 
     <div ng-show="((user || {}).role === 'ADMIN')">

@@ -1,1 +1,5 @@
-hisotry
+<div ng-controller="historyController">
+    <div ng-repeat="survey in history">
+        <ng-include src='"/surveys/resources/html/survey-template.html"' />
+    </div>
+</div>

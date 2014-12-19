@@ -3,8 +3,10 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.dao.SurveyDao;
 import com.springapp.mvc.model.Answer;
 import com.springapp.mvc.model.Survey;
+import com.springapp.mvc.model.Vote;
 import com.springapp.mvc.service.exception.InvalidInputException;
 import com.springapp.mvc.util.CommonUtils;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,10 @@ public class SurveyService {
 
     @Autowired
     private AnswerService answerService;
+
+    @Autowired
+    private VoteService voteService;
+
 
     public Survey buildSurvey(String _description, String[] _answers, String _expDate) {
 
@@ -93,5 +99,32 @@ public class SurveyService {
             return;
         }
         surveyDao.enableSurvey(id);
+    }
+
+    public Survey getSurveyStatsByVoteId(Long voteId) {
+        Vote vote = voteService.findVote(voteId);
+        if (vote == null) {
+            throw new InvalidInputException("Cannot find placed vote!");
+        }
+
+        Survey response = new Survey();
+        Survey survey = vote.getAnswer().getSurvey();
+        Integer surveyTotalVotes = voteService.getTotalVotesForSurvey(survey);
+
+        response.setId(survey.getId());
+        response.setDescription(survey.getDescription());
+        response.setDisabled(survey.getDisabled());
+        response.setExpDate(survey.getExpDate());
+
+        for (Answer a : survey.getAnswers()) {
+            Integer _result = voteService.getTotalVotesForAnswer(a);
+            if (_result > 0) {
+                response.getAnswers().add(new Answer(a.getText() + "  " + _result * 100 / surveyTotalVotes + "%"));
+            }
+            else {
+                response.getAnswers().add(new Answer(a.getText() + "  " + "0%"));
+            }
+        }
+        return response;
     }
 }

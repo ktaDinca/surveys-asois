@@ -33,12 +33,13 @@ public class LoginController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         User loggedInUser = userService.attemptLogin(username, password);
-        if (loggedInUser != null) {
+        if (loggedInUser == null) {
+            return null;
+        }else {
             map.put("user", loggedInUser);
             request.getSession().setAttribute(USER_KEY, loggedInUser);
             userService.createLogInteraction(loggedInUser, LogEvent.LOGIN);
         }
-
         return map;
     }
 

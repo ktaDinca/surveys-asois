@@ -24,10 +24,6 @@ public class Answer implements BaseObject {
     @JoinColumn(name = "survey_id", nullable = false)
     private Survey survey;
 
-    @JsonIgnore
-    @Column(name = "votes")
-    private Integer votes = 0;
-
     public Answer() {}
 
     public Answer(String text) {
@@ -48,14 +44,6 @@ public class Answer implements BaseObject {
 
     public void setSurvey(Survey survey) {
         this.survey = survey;
-    }
-
-    public Integer getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Integer votes) {
-        this.votes = votes;
     }
 
     public Long getId() {

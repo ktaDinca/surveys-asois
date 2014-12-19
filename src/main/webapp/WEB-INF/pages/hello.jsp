@@ -23,6 +23,8 @@
         <script src="<spring:url value="/resources/javascript/LoginController.js"/>"></script>
         <script src="<spring:url value="/resources/javascript/RegisterController.js"/>"></script>
         <script src="<spring:url value="/resources/javascript/LogHistoryController.js"/>"></script>
+        <script src="<spring:url value="/resources/javascript/StatisticsController.js"/>"></script>
+        <script src="<spring:url value="/resources/javascript/HistoryController.js"/>"></script>
 
         <%--styles--%>
         <link rel="stylesheet" href="<spring:url value="/resources/css/login.css" />"/>

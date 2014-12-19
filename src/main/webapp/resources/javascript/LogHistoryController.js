@@ -6,6 +6,10 @@ angular
     .module('surveys')
     .controller('logHistoryController', ['$scope', '$http', function($scope, $http) {
 
+        $scope.$on('doLoginHistoryTab', function() {
+            $scope.loadLogs();
+        });
+
         $scope.logs = [];
 
         $scope.loadLogs = function() {
@@ -20,8 +24,4 @@ angular
                 }
             });
         };
-
-        $scope.loadLogs();
-
-
     }]);

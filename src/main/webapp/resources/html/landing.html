@@ -1,6 +1,13 @@
 <div ng-controller="mainController">
 
-    <h2>Buna ziua!</h2>
+    <div ng-show="!user">
+        <h2>Buna ziua!</h2>
+    </div>
+    <div ng-show="user">
+        <h2>Buna ziua, {{user.username}}!</h2>
+        <h4>You are an: {{user.role}}!</h4>
+    </div>
+
     <br>
 
     <div ng-show="!user" ng-include='"/surveys/resources/html/login.html"'></div>
@@ -8,25 +15,25 @@
 
     <button type="button" class="btn btn-danger" ng-show="user" ng-click="logoutUser()">logout</button>
 
-    <div ng-show="user">
-        Salut {{user.username}} -- {{user.role}}
-    </div>
-
-    <tabset>
-        <tab heading="active surveys">
+    <tabset id="tabs">
+        <tab heading="Active" select="doActiveSelect()">
             <ng-include src='"/surveys/resources/html/active.html"'></ng-include>
         </tab>
 
-        <tab heading="expired surveys">
+        <tab heading="Expired" select="doExpiredSelect()">
             <ng-include src='"/surveys/resources/html/expired.html"'></ng-include>
         </tab>
 
-        <tab heading="your history">
+        <tab ng-show="!!user && user.role === 'USER'" heading="Your History" select="doHistorySelect()">
             <ng-include src='"/surveys/resources/html/history.html"'></ng-include>
         </tab>
 
-        <tab ng-show="(user || {}).role === 'ADMIN'" heading="login history">
+        <tab ng-show="(user || {}).role === 'ADMIN'" select="doLoginHistorySelect()" heading="Login History">
             <ng-include src='"/surveys/resources/html/login-history.html"'></ng-include>
+        </tab>
+
+        <tab ng-show="(user || {}).role === 'ANALYST'" select="doStatisticsSelect()" heading="Statistics">
+            <ng-include src='"/surveys/resources/html/statistics.html"'></ng-include>
         </tab>
     </tabset>
 </div>

@@ -2,10 +2,15 @@ angular
     .module('surveys')
     .controller('activeController', ['$scope', '$cookieStore', '$http', function($scope, $cookieStore, $http) {
 
+        $scope.$on('doActiveTab', function() {
+            $scope.surveys = $scope.getActiveSurveys() || [] ;
+        });
+
 //        $scope.$on('userLoggedIn2', function() {
 //            $scope.user = $cookieStore.get('user');
 //        });
 
+        $scope.tempId = null;
         $scope.dateFormat = 'dd-MMMM-yyyy';
         $scope.minDate = new Date();
 
@@ -92,11 +97,64 @@ angular
                 alert ("That is a duplicate answer!");
         };
 
-        $scope.attemptVote = function(id) {
+        $scope.attemptVote = function(surveyId, answerId) {
+            console.log(arguments);
             if (!$scope.user) {
                 alert("Please login in order to submit your vote!");
+                return;
             }
-            console.log(id);
+            var survey = $scope.surveys.filter(function(surv) {
+                return surv.id === surveyId;
+            });
+
+            var selectedAnswer = survey.length && survey[0].answers.filter(function(answer){ return answer.id === answerId; });
+            selectedAnswer = selectedAnswer.length && selectedAnswer[0];
+
+            $http({
+                method : 'POST',
+                url : '/surveys/votes/save',
+                params : {
+                    answer_id : answerId,
+                    user_id : $scope.user.id
+                }
+            }).success(function(data) {
+                if (data.vote != null) {
+                    alert("Congratulations! You have place your vote!");
+                    $scope.getSurveyStatistic(data.vote.id);
+                }
+                else {
+                    alert("Invalid input! Multiple voting?");
+                }
+            });
+        };
+
+        $scope.getSurveyStatistic = function(voteId) {
+            $http({
+                method : 'GET',
+                url : '/surveys/stats/' + voteId
+            })
+            .success(function(data) {
+                if (data.stats != null) {
+
+                    console.log(data.stats);
+
+                    var surveyId = data.stats.id;
+
+                    var i = 0, found = -1;
+                    for (i; i < $scope.surveys.length; i ++) {
+                        if ($scope.surveys[i].id === surveyId) {
+                            found = i;
+                        }
+                    }
+
+                    console.log(found);
+                    if (found > -1) {
+                        $scope.surveys.splice(found, 1);
+                        $scope.surveys.unshift(data.stats);
+                        console.log($scope.surveys);
+                    }
+                }
+            });
         };
 
         $scope.deleteSurvey = function(id) {

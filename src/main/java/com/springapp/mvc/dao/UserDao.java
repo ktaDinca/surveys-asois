@@ -23,4 +23,11 @@ public class UserDao extends BaseDao {
 
         return (results != null && results.size() > 0) ? results.get(0) : null;
     }
+
+    public User findUser(Long id) {
+        Query q = entityManager.createQuery("Select u from User u where u.id = :id").setParameter("id", id);
+        List<User> results = q.getResultList();
+
+        return (results != null && results.size() > 0) ? results.get(0) : null;
+    }
 }
