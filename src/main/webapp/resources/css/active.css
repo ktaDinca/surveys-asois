@@ -1,0 +1,21 @@
+#addSurveyBox {
+    width: 60%;
+    float: none;
+    margin: 20px auto;
+}
+
+.surveyContainer {
+    border-left: 2px solid greenyellow;
+    float: none;
+    margin: 15px auto;
+}
+
+.answer {
+    margin-left: 10%;
+    font-size: 17px;
+}
+
+.surveyContainer button {
+    margin-top: 20px ;
+    width: 20%;
+}

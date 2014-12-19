@@ -1,0 +1,18 @@
+
+<div id="logsContainer" class="container-fluid" ng-controller="logHistoryController">
+    <table class="table">
+        <thead>
+            <th>Time</th>
+            <th>Event</th>
+            <th>User</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="log in logs">
+                <td>{{log.time | date : 'dd MMM yyyy - HH:mm:ss'}}</td>
+                <td>{{log.logEvent}}</td>
+                <td>{{log.user.username}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

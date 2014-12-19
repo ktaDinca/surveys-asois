@@ -25,6 +25,18 @@ public class User implements BaseObject {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "country")
+    private String country;
+
+    public User() {}
+
+    public User(String username, String password, String country, Role role) {
+        this.username = username;
+        this.password = password;
+        this.country = country;
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
@@ -56,6 +68,14 @@ public class User implements BaseObject {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
 

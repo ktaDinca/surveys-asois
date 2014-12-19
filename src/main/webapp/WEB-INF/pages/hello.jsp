@@ -19,7 +19,16 @@
         <script src="<spring:url value="/resources/javascript/ConfigController.js"/>"></script>
         <script src="<spring:url value="/resources/javascript/MainController.js"/>"></script>
         <script src="<spring:url value="/resources/javascript/ActiveController.js"/>"></script>
+        <script src="<spring:url value="/resources/javascript/ExpiredController.js"/>"></script>
         <script src="<spring:url value="/resources/javascript/LoginController.js"/>"></script>
+        <script src="<spring:url value="/resources/javascript/RegisterController.js"/>"></script>
+        <script src="<spring:url value="/resources/javascript/LogHistoryController.js"/>"></script>
+
+        <%--styles--%>
+        <link rel="stylesheet" href="<spring:url value="/resources/css/login.css" />"/>
+        <link rel="stylesheet" href="<spring:url value="/resources/css/active.css" />"/>
+        <link rel="stylesheet" href="<spring:url value="/resources/css/log-history.css" />"/>
+
     </head>
     <body>
         <div ng-app="surveys">

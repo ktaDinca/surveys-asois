@@ -4,12 +4,15 @@
     <br>
 
     <div ng-show="!user" ng-include='"/surveys/resources/html/login.html"'></div>
+    <div ng-show="!user" ng-include='"/surveys/resources/html/register.html"'></div>
+
+    <button type="button" class="btn btn-danger" ng-show="user" ng-click="logoutUser()">logout</button>
 
     <div ng-show="user">
         Salut {{user.username}} -- {{user.role}}
     </div>
 
-    <tabset justified="true">
+    <tabset>
         <tab heading="active surveys">
             <ng-include src='"/surveys/resources/html/active.html"'></ng-include>
         </tab>
@@ -21,6 +24,9 @@
         <tab heading="your history">
             <ng-include src='"/surveys/resources/html/history.html"'></ng-include>
         </tab>
-    </tabset>
 
+        <tab ng-show="(user || {}).role === 'ADMIN'" heading="login history">
+            <ng-include src='"/surveys/resources/html/login-history.html"'></ng-include>
+        </tab>
+    </tabset>
 </div>

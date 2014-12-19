@@ -1,34 +1,68 @@
 <div ng-controller="activeController">
 
     <!--displayed only to non users-->
-    <div id="addSurveyBox" ng-show="(user || {}).role === 'ADMIN'">
-        <label>subject:</label>
-        <input type="text" ng-model="tempDescription"> <br>
+    <div class="panel panel-primary" id="addSurveyBox" ng-show="(user || {}).role === 'ADMIN'">
 
-        <label>answers:</label><br>
-        <input type="text" ng-model="tempAnswer"> <br>
-        <button type="button" class="btn btn-warning" ng-click="addNewAnswerToSurvey()">add answer</button>
-        <br>
-        <button on-click="addSurvey" type="button" ng-click="addSurvey()">add survey</button>
+        <div class="panel-heading">
+            Would you like to add a new survey?
+        </div>
 
-        <br><br><br>
-        <label ng-show="tempDescription">Survey preview:</label>
-        <div class="panel">
-            {{tempDescription}}
-            <ul>
-                <li ng-repeat="answer in newSurvey.answers">{{answer}}</li>
-            </ul>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <input class="form-control" type="text" placeholder="Subject?" ng-model="tempDescription" />
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{dateFormat}}"
+                                               ng-model="tempExpireDate" is-open="datePickerOpened" min-date="{{minDate}}"
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                date
+                                            </button>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-md-8 col-sm-12 col-lg-8">
+                                    <input class="form-control" type="text" placeholder="Answer?" id="tempAnswer" ng-model="tempAnswer" /> <br>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                    <button class="form-control btn btn-success" type="button" class="btn btn-warning" ng-click="addNewAnswerToSurvey()">add answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label ng-show="tempDescription">Survey preview:</label>
+                        <div class="panel">
+                            <h3>{{tempDescription}}</h3>
+                            <ul>
+                                <li ng-repeat="answer in newSurvey.answers">{{answer}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <button on-click="addSurvey" type="button" class="btn btn-info" ng-click="addSurvey()">add survey</button>
+            </div>
         </div>
     </div>
 
-    <br><br><br><br><br>
-
     <div ng-repeat="survey in surveys">
-        <div>{{survey.description}}</div>
-        <div ng-repeat="answer in survey.answers">
-            <input type="radio" class="radio-inline"  value=""><label>{{answer}}</label>
+        <div id="survey-container">
+            <ng-include src='"/surveys/resources/html/survey-template.html"' />
         </div>
-        <button ng-show="!((user || {}).role === 'ADMIN')" type="button" ng-click="attemptVote()"class="btn btn-info">vote</button>
+        <hr>
     </div>
 
 </div>

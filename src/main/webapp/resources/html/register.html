@@ -1,0 +1,15 @@
+<div ng-controller="registerController">
+
+    <div id="register-container">
+
+        <span ng-show="registerButtonPressed">
+            <input type="text" placeholder="username" ng-model="reg_username">
+            <input type="password" placeholder="password" ng-model="reg_password">
+            <input type="text" placeholder="country" ng-model="reg_country">
+        </span>
+
+        <button type="button" class="btn btn-info" ng-click="attemptRegister(registerButtonPressed)">register</button>
+    </div>
+
+
+</div>
